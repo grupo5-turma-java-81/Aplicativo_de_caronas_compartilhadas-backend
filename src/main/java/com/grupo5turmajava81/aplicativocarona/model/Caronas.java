@@ -37,7 +37,6 @@ public class Caronas {
 	private String placa;
 	
 
-	
 	@UpdateTimestamp
 	private LocalDate data;
 

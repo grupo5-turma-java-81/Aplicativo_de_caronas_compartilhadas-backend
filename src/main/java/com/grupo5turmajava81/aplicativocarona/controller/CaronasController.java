@@ -53,10 +53,14 @@ public class CaronasController {
 
 	@PostMapping
 	public ResponseEntity<Caronas> post(@Valid @RequestBody Caronas caronas) {
-		if (motoristaRepository.existsById(caronas.getMotorista().getId()))
-			return ResponseEntity.status(HttpStatus.CREATED).body(caronasRepository.save(caronas));
+		if (caronas.getMotorista() == null || caronas.getMotorista().getId() == null)
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Id do motorista é Obrigatório");
 
-		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Carona não existe!", null);
+		if (!motoristaRepository.existsById(caronas.getMotorista().getId()))
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Carona não existe!", null);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(caronasRepository.save(caronas));
+
 	}
 
 	@PutMapping
