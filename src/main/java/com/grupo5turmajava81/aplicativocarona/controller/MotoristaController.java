@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.grupo5turmajava81.aplicativocarona.model.Motorista;
-import com.grupo5turmajava81.aplicativocarona.repository.CaronasRepository;
 import com.grupo5turmajava81.aplicativocarona.repository.MotoristaRepository;
 
 import jakarta.validation.Valid;
@@ -33,8 +32,6 @@ public class MotoristaController {
 	@Autowired
 	private MotoristaRepository motoristaRepository;
 
-	@Autowired
-	private CaronasRepository caronasRepository;
 
 	@GetMapping
 	public ResponseEntity<List<Motorista>> getAll() {
@@ -74,7 +71,7 @@ public class MotoristaController {
 
 		if (motorista.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-		caronasRepository.deleteById(id);
+		motoristaRepository.deleteById(id);
 	}
 	
 	
